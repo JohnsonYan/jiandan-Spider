@@ -31,7 +31,7 @@ def jdSpider(start, end):
         if not os.path.exists(dirpath):
             os.mkdir(dirpath)
     except:
-        print '创建目录异常'
+        print('创建目录异常')
         sys.exit(0)
 
     # 按页访问，获取所有mm图下载地址
