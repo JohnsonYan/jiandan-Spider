@@ -5,8 +5,7 @@ import os
 import sys
 import argparse
 import urllib.request
-
-import requests  
+ 
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
@@ -21,7 +20,7 @@ def jdSpider(start, end):
     urls = ('http://jandan.net/ooxx/page-{}#comments'.format(i) for i in range(start, end+1))
     user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0'
 
-    driver=webdriver.Firefox()
+    driver = webdriver.Firefox()
     driver.maximize_window()
 
     x = 1
@@ -37,7 +36,7 @@ def jdSpider(start, end):
 
     # 按页访问，获取所有mm图下载地址
     for url in urls:
-        print ("正在访问{}".format(url)) 
+        print("正在访问{}".format(url)) 
         try:
             driver.get(url)
             driver.implicitly_wait(10)
@@ -45,14 +44,14 @@ def jdSpider(start, end):
             soup = BeautifulSoup(data, 'lxml')
             hrefs = soup.find_all('a',class_="view_img_link")
         except:
-            print ("访问异常！")  
+            print("访问异常！")  
             continue
 
-        print ("开始下载") 
+        print("开始下载") 
         for href in hrefs:
             img = href.get('href')
             img = "http:" + img
-            print ("正在下载第{}张图片".format(x))
+            print("正在下载第{}张图片".format(x))
             filename = os.path.join(dirpath, img.split('/')[-1])
 
             try:
@@ -60,7 +59,7 @@ def jdSpider(start, end):
                 x = x+1
                 # time.sleep(0.1)
             except:
-                print ("img 访问异常！wating 60s.")
+                print("img 访问异常！wating 60s.")
                 time.sleep(60)
                 continue
 
